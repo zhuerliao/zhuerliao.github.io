@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>final</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        
+        *{box-sizing: border-box;}
+
+        body {
+            font-family: "Inter", serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        ul,h2,body {
+            margin: 0;
+        }
+
+        img {
+            display: block;
+        }
+
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 22px ;
+            background-color: #F5F5F5;
+        }
+
+        header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0px;
+            background-color:#fff;
+        }
+
+        .logo img{
+            width: 113px;
+        }
+
+        nav {
+            margin-left: auto;
+            display: flex;
+            gap: 8px ;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        
+
+        nav a {
+            display: block;
+            padding:10px 30px;
+            color: #000;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        nav a:hover {
+            color: #0087A5 ;
+        }
+
+        .news {
+            padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #E2E2E2;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+        .news ul {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news li {
+            align-items: center;
+            display: flex;
+            gap: 20px ;
+        }
+
+        .notice-title {
+            padding: 10px 50px;
+            display: block;
+            background-color: #FFF561;
+        }
+
+        .news ul a:hover {
+            text-decoration: underline;
+        }
+
+       .more-button a:hover {
+        color: #0087A5;
+       }
+
+       .search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+       }
+
+       section {
+        display: flex;
+        gap: 20px;
+       }
+
+       .card {
+        width: 297px;
+        display: flex;
+        flex-direction: column;
+        padding: 30px 30px 30px 30px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+       }
+
+       .card-image img {
+        width: 235px;
+        height: 170px;
+        border-radius: 5px;
+       }
+
+       .card-title {
+        font-size: 16px;
+       }
+
+       .card-intro {
+        font-size: 12px;
+        width: 235px;
+       }
+
+       .more-button {
+        list-style: none;
+       }
+
+       .card:hover {
+        color: #0087A5;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.50);
+       }
+
+       .service {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 50px;
+       }
+       
+       .card2 {
+        width: 336px;
+        height: 238px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 18px;
+        border-radius: 10px;
+        background-color: #FFF561;
+       }
+
+       .card2-image img {
+        width: 300px;
+        height: 161px;
+        border-radius: 5px;
+       }
+
+       .card2:hover {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.50);
+       }
+
+       .footer {
+        color: #fff;
+        display: flex;
+        padding-top: 20px;
+        flex-direction: column;
+        background-color:#0087A5;
+       }
+
+       .footer a {
+        color: #fff;
+       }
+
+       .footer ul {
+        display: flex;
+        gap: 24px;
+       }
+
+       .footer li {
+        list-style: none;
+       }
+
+       .footer-intro {
+        padding-left: 38px;
+       }
+       
+       .footer a:hover {
+        color: #FFF561;
+       }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo">
+                <a href="#"><img src="img/logo.png" alt=""></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">寄件</a></li>
+                    <li><a href="#">查詢</a></li>
+                    <li><a href="#">客戶服務</a></li>
+                    <li><a href="#">個人會員</a></li>
+                    <li><a href="#"><span class="material-symbols-outlined">
+                        search
+                    </span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="news">
+            <h3 class="news-title">最新消息</h3>
+
+            <ul>
+            <li>
+                <p class="notice-title">公告</p>
+                <p class="notice-date">2023/05/16</p>
+                <p class="nootice-intro"><a href="#">貓頭鷹急便反詐騙公告</a></p>
+            </li>
+
+            <li><p class="notice-title">公告</p>
+                <p class="notice-date">2024/12/18</p>
+                <p class="nootice-intro"><a href="#">貓頭鷹急便官網系統停機公告</a></p>
+            </li>
+
+            <li><p class="notice-title">公告</p>
+                <p class="notice-date">2024/12/14</p>
+                <p class="nootice-intro"><a href="#">2025年春節繁盛期服務調整公告</a></p>
+            </li>
+
+            <li><p class="notice-title">公告</p>
+                <p class="notice-date">2024/11/18</p>
+                <p class="nootice-intro"><a href="#">2024/11/18-11/22外島包裹服務調整公告</a></p>
+            </li>
+
+            </ul>
+
+        <div class="more-button">
+            <li><a href="#">
+                <span class="material-symbols-outlined">
+                    expand_circle_down
+                    </span></a>
+            </li>
+        </div>
+    </div>
+
+        <div class="search">
+            <h3 class="search-title">查詢</h3>
+
+            <section>
+                
+                <div class="card">
+                    <div class="card-image"><img src="img/card01.png" alt=""></div>
+                    <h4 class="card-title">問題查詢</h4>
+                    <p class="card-intro">Lorem ipsum dolor sit amet consectetur. 
+                        Tempor viverra ultricies vestibulum.</p>
+                </div>
+            
+                    <div class="card">
+                    <div class="card-image"><img src="img/card02.png" alt=""></div>
+                    <h4 class="card-title">寄件問題</h4>
+                    <p class="card-intro">Lorem ipsum dolor sit amet consectetur. 
+                        Tempor viverra ultricies vestibulum.</p>
+                </div>
+
+                    <div class="card">
+                    <div class="card-image"><img src="img/card03.png" alt=""></div>
+                    <h4 class="card-title">包裹問題</h4>
+                    <p class="card-intro">Lorem ipsum dolor sit amet consectetur. 
+                        Tempor viverra ultricies vestibulum.</p>
+                </div>
+
+            </section>
+
+            <div class="more-button">
+                <li><a href="#">
+                    <span class="material-symbols-outlined">
+                        expand_circle_down
+                        </span></a>
+                </li>
+            </div>
+        </div>
+
+        <div class="service">
+            <h3 class="service-title">其他服務</h3>
+
+            <section>
+                <div class="card2">
+                    <div class="card2-image"><img src="img/card04.png" alt=""></div>
+                    <h4 class="card2-title">客服中心</h4>
+                </div>
+
+                <div class="card2">
+                    <div class="card2-image"><img src="img/card05.png" alt=""></div>
+                    <h4 class="card2-title">會員專區</h4>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <ul>
+                <li><a href="#">聯絡我們</a></li>
+                <li><a href="#">隱私權聲明</a></li>
+                <li><a href="#">托運條款</a></li>
+                <li><a href="#">日文網站</a></li>
+            </ul>
+
+            <p class="footer-intro">台藝速達股份有限公司 版權所有    COPYRIGHT © 2024 PRESIDENT TRANSNET CORP.</p>
+        </div>
+
+    </div>
+</body>
+</html>
