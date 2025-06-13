@@ -1,0 +1,637 @@
+* {box-sizing: border-box;}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+body,h1,h2,h3,h4,p,button,ul,li {
+    margin: 0;
+}
+
+.list {
+    list-style: none;
+    margin: 0; padding: 0;
+}
+
+
+
+/*行動版開始*/
+@media screen and (max-width: 767px) {
+
+header {
+    display: flex;
+    flex-direction: column; /* 讓左右兩側分開 */
+    margin: 12px 12px;
+}
+
+.logo {
+    width: 42px; height: 42px;
+}
+
+.menu {
+    display: flex;
+    width: 24px; height: 24px;
+    position: absolute;
+    border: 0;
+    background-color: transparent;
+    right: 20px;
+    top: 20px;
+}
+
+.menu img {
+    transition: filter 0.2s;
+}
+
+/* 當 nav 有 active 類時，menu 裡的 img 變 #3cff00 */
+nav.active ~ .menu img,
+.menu.active img {
+    filter: invert(74%) sepia(97%) saturate(749%) hue-rotate(63deg) brightness(104%) contrast(104%);
+}
+
+nav {
+    max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+        display: block; /* 只保留這個 */
+}
+
+nav.active {
+    max-height: 300px; /* 根據內容高度調整 */
+}
+
+#nav.show {
+    clip-path: rect(0px 100% 100vh 0px);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0;
+    gap: 2rem;
+}
+
+.nav-list {
+    position: relative;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.list a {
+    color: black;
+    font-size: .9rem;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    width: 80%;
+    margin: 0 auto;/*讓選單按鈕居中*/
+    border: 2px solid black;
+    border-radius: 2rem;
+    transition:  0.2s;
+}
+
+.list a:hover {
+    color: black;
+    background-color: #3cff00;
+    border: 2px solid #3cff00;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #3cff00;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+.carousel-item {
+    align-items: center;
+    justify-content: center;
+    height: 450px;
+}
+
+.carousel-item img {
+    max-height: 100%;
+    width: auto;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #3cff00;
+    border-radius: 50%;
+}
+
+.work {
+    margin-top: 80px;
+    padding: 80px;
+    align-items: center;
+}
+
+h2.work-title {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.work-line {
+    display: block;
+    width: 100%;
+    border: 1px solid black;
+    margin-bottom: 30px;
+}
+
+.work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.work a {
+    color: black;
+}
+
+.work a:hover {
+    color: black;
+}
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 20px;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+.work-card:hover {
+    background-color: #3cff00;
+    border: 2px solid #3cff00;
+}
+
+.work01-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work02-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work03-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work04-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work-img {
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.work-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.work-date {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.work-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.footer-intro {
+    display: flex;
+    height: 100px;
+    margin-top: 130px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3cff00;
+}
+
+.button-more {
+    display: flex;
+    justify-content: center;
+}
+
+.button-more img {
+    width: 30px; height: 30px;
+    transition: filter 0.2s;
+}
+
+.more-work:hover img {
+    filter: brightness(0) saturate(100%) invert(74%) sepia(97%) saturate(749%) hue-rotate(63deg) brightness(104%) contrast(104%);
+}
+
+.more-work {
+    display: flex;
+    position: relative;
+    width: 100px; height: 50px;
+    border: none;
+    font-size: 1.2rem;
+    color: black;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-work:hover {
+    color: #3cff00;
+}
+
+.button-home {
+    display: flex;
+    width: 50px; height: 50px;
+    margin-top: 50px;
+    border: none;
+    border-radius: 40px;
+    border: 2px solid #3cff00;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 40px;
+    bottom: auto;
+    z-index: 1000;
+   opacity: 0.5; /* 預設透明度 50% */
+    transition: 
+        opacity 0.2s,
+        background-color 0.2s,
+        border-color 0.2s;
+}
+
+.button-home img {
+    width: 24px; height: 24px;
+    transition: filter 0.2s;
+    filter: invert(74%) sepia(97%) saturate(749%) hue-rotate(63deg) brightness(104%) contrast(104%);
+    /* 這樣預設是 #3cff00 */
+}
+
+.button-home:hover {
+    opacity: 1;
+    background-color: #3cff00;
+    border-color: #3cff00;
+}
+
+.button-home:hover img {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    /* 這樣是黑色 */
+}
+
+.footer-text {
+    margin-left: 40px;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    padding: 0 40px;
+    gap: 20px;
+    list-style: none;
+}
+
+}/*行動版結束*/
+
+
+
+
+
+/*電腦版開始*/
+@media screen and (min-width: 768px) {
+
+header {
+    display: flex;
+    justify-content: space-between; /* 讓左右兩側分開 */
+    align-items: center;            /* 垂直置中 */
+    margin: 12px 12px;
+}
+
+.logo {
+    width: 42px; height: 42px;
+}
+
+.menu {
+    display: none;
+}
+
+.list {
+    display: block;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-list {
+    position: relative;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.nav-list::before {
+    content: "";
+    display: block;/*設定成區塊*/
+    width: 0%;
+    height: 2px;
+    background-color: #3cff00;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    transition: 0.18s ease-in-out;
+    }
+
+.nav-list:hover.nav-list::before {
+    width: 100%;
+}
+
+.list a {
+    color: black;
+}
+
+.list a:hover {
+    color: #3cff00;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #3cff00;
+}
+
+.carousel-inner {
+    height: auto;
+}
+
+.carousel-item {
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.carousel-item img {
+    max-height: 100%;
+    width: auto;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #3cff00;
+    border-radius: 50%;
+}
+
+.work {
+    margin-top: 200px;
+    padding: 80px;
+    align-items: center;
+}
+
+h2.work-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.work-line {
+    display: block;
+    width: 100%;
+    border: 1px solid black;
+    margin-bottom: 50px;
+}
+
+.work-list {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.work a {
+    color: black;
+}
+
+.work a:hover {
+    color: black;
+}
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+    width: 400px; height: 400px;
+    border-radius: 20px;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+.work-card:hover {
+    background-color: #3cff00;
+    border: 2px solid #3cff00;
+    transform: scale(1.05);
+    transition: all 0.12s ease-in-out;
+}
+
+.work01-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work02-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work03-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work04-intro {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.work-img {
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.work-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.work-date {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.work-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.footer-intro {
+    display: flex;
+    height: 100px;
+    margin-top: 150px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3cff00;
+}
+
+.button-more {
+    display: flex;
+    justify-content: center;
+}
+
+.button-more img {
+    width: 30px; height: 30px;
+    transition: filter 0.2s;
+}
+
+.more-work:hover img {
+    filter: brightness(0) saturate(100%) invert(74%) sepia(97%) saturate(749%) hue-rotate(63deg) brightness(104%) contrast(104%);
+}
+
+.more-work {
+    display: flex;
+    position: relative;
+    width: 100px; height: 50px;
+    border: none;
+    font-size: 1.2rem;
+    color: black;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-work:hover {
+    color: #3cff00;
+}
+
+.more-work::before {
+    content: "";
+    display: block;/*設定成區塊*/
+    width: 0%;
+    height: 2px;
+    background-color: #3cff00;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    transition: 0.18s ease-in-out;
+}
+
+.more-work:hover.more-work::before {
+    width: 100%;
+}
+
+.button-home {
+    display: flex;
+    width: 50px; height: 50px;
+    margin-top: 80px;
+    border: none;
+    border-radius: 40px;
+    border: 2px solid #3cff00;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 40px;
+    bottom: auto;
+    z-index: 1000;
+   opacity: 0.5; /* 預設透明度 50% */
+    transition: 
+        opacity 0.2s,
+        background-color 0.2s,
+        border-color 0.2s;
+}
+
+.button-home img {
+    width: 24px; height: 24px;
+    transition: filter 0.2s;
+    filter: invert(74%) sepia(97%) saturate(749%) hue-rotate(63deg) brightness(104%) contrast(104%);
+    /* 這樣預設是 #3cff00 */
+}
+
+.button-home:hover {
+    opacity: 1;
+    background-color: #3cff00;
+    border-color: #3cff00;
+}
+
+.button-home:hover img {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    /* 這樣是黑色 */
+}
+
+.footer-text {
+    margin-left: 40px;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    padding: 0 40px;
+    gap: 20px;
+    list-style: none;
+}
+
+}/*電腦版結束*/
+
