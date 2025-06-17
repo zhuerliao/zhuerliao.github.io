@@ -113,7 +113,7 @@ nav.active {
 }
 
 .carousel-inner {
-    height: 100%;
+    width: 100%;
 }
 
 .carousel-item {
@@ -124,7 +124,7 @@ nav.active {
 
 .carousel-item img {
     max-height: 100%;
-    width: auto;
+    width: 100%;
     object-fit: cover;
     object-position: center;
     margin: 0 auto;
