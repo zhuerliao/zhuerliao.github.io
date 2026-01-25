@@ -3,9 +3,10 @@ body {
   color: white;
   font-family: sans-serif;
   margin: 0;
-  overflow: hidden; /* 防止滾動條影響切換體驗 */
+  text-align: center;
 }
 
+/* 啟動畫面 */
 #startOverlay {
   position: fixed;
   inset: 0;
@@ -17,37 +18,30 @@ body {
   font-size: 32px;
   cursor: pointer;
   z-index: 100000;
+  user-select: none;
 }
 
-#videoContainer {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/* 影片樣式 */
 video {
-  position: absolute; /* 重點：讓 A 跟 B 疊在一起 */
+  width: auto;
+  height: auto;
   max-width: 100%;
+  /*1201*/
   max-height: 100vh;
+  margin: 0 auto;
+  /*1201 end*/
   border: 2px solid white;
   border-radius: 8px;
-  transition: opacity 0.4s ease; /* 增加淡入淡出感 */
+  position: relative;           /* ✅ 新增：讓音量條能相對定位 */
+  display: block;               /* ✅ 確保 block 定位 */
 }
 
-/* 隱藏狀態：用 opacity + visibility 效能比 display:none 好，且不會停止解碼 */
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
+/* 音量條 */
 #volumeIndicator {
-  position: fixed;
-  bottom: 10%;
-  left: 37%;
+  display: block;
+  position: fixed;              /* ✅ 改回 fixed，穩定定位 */
+  bottom: 10%;                  /* ✅ 影片底部 15% 位置 */
+  left: 37%;                     /* ✅ 畫面左側 5% */
   width: 12px;
   height: 60px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -59,23 +53,32 @@ video {
 
 #volumeBar {
   position: absolute;
-  bottom: 0;
+  bottom: 0;        /* 固定在底部 */
+  left: 0;
   width: 100%;
+  height: 0%;       /* 從 0% 向上增長 */
+  background: linear-gradient(to top, #4CAF50, #8BC34A);
   transition: height 0.1s ease;
   border-radius: 4px;
 }
 
+/* B/C 提示文字 */
 #cInfoText {
   position: fixed;
   bottom: 20px;
-  width: 100%;
+  left: 0;
+  right: 0;
   text-align: center;
   color: white;
   font-size: 14px;
+  font-weight: bold;
   text-shadow: 0 2px 5px rgba(0,0,0,0.7);
   z-index: 10000;
   opacity: 0;
   transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
-#cInfoText.show { opacity: 1; }
+#cInfoText.show {
+  opacity: 1;
+}
