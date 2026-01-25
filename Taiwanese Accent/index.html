@@ -4,19 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>語音控制影片切換</title>
-
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
-  <script src="https://cdn.jsdelivr.com/npm/@tensorflow-models/posenet"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div id="startOverlay">點擊啟動</div>
 
-  <video id="videoPlayer" autoplay loop>
-    <source src="videoA.mp4" type="video/mp4" />
-  </video>
+  <div id="videoContainer">
+    <video id="videoA" autoplay loop playsinline>
+      <source src="videoA.mp4" type="video/mp4" />
+    </video>
+    <video id="videoB" class="hidden" preload="auto" playsinline>
+      <source src="videoB.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <div id="volumeIndicator">
     <div id="volumeBar"></div>
