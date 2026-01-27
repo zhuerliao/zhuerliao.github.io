@@ -94,7 +94,7 @@ async function initAudio() {
 
     // ✅ 可選：GainNode 放大「偵測用」音量（不會影響影片音量）
     const gainNode = audioContext.createGain();
-    gainNode.gain.value = 2; // 2~8 都可試，太大會讓背景噪音也變高
+    gainNode.gain.value = 4; // 2~8 都可試，太大會讓背景噪音也變高
 
     microphone.connect(gainNode);
     gainNode.connect(analyser);
@@ -187,9 +187,9 @@ function updateVolumeIndicator() {
   const db = latestDb;
 
   // ✅ 音量條映射：加噪音門檻 + 對比增強
-const NOISE_GATE_DB = -50;  // 低於此值 = 完全靜音 (0%)
-const minDb = -40;          // 說話起點
-const maxDb = -20;          // 大聲上限
+const NOISE_GATE_DB = -60;  // 低於此值 = 完全靜音 (0%)
+const minDb = -50;          // 說話起點
+const maxDb = -15;          // 大聲上限
 
 let percent = 0;
 if (db > NOISE_GATE_DB) {   // ✅ 噪音門檻：低於此值強制 0%
