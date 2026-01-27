@@ -189,7 +189,7 @@ function updateVolumeIndicator() {
   // ✅ 音量條映射：加噪音門檻 + 對比增強
 const NOISE_GATE_DB = -50;  // 低於此值 = 完全靜音 (0%)
 const minDb = -45;          // 說話起點
-const maxDb = -20;          // 大聲上限
+const maxDb = -10;          // 大聲上限
 
 let percent = 0;
 if (db > NOISE_GATE_DB) {   // ✅ 噪音門檻：低於此值強制 0%
