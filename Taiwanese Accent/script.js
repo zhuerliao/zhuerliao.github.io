@@ -186,19 +186,24 @@ function updateVolumeIndicator() {
   latestDb = getVolumeDB();
   const db = latestDb;
 
-  // ✅ 音量條映射範圍：先放寬，避免一直 0%
-  const minDb = -80;
-  const maxDb = -20;
+  // ✅ 音量條映射：加噪音門檻 + 對比增強
+const NOISE_GATE_DB = -50;  // 低於此值 = 完全靜音 (0%)
+const minDb = -45;          // 說話起點
+const maxDb = -20;          // 大聲上限
 
+let percent = 0;
+if (db > NOISE_GATE_DB) {   // ✅ 噪音門檻：低於此值強制 0%
   let normalized = (db - minDb) / (maxDb - minDb);
   normalized = Math.min(Math.max(normalized, 0), 1);
-  const percent = normalized * 100;
+  percent = normalized * 100;
+}
 
-  volumeBar.style.height = `${percent}%`;
-  volumeBar.style.background =
-    db >= DB_THRESHOLD
-      ? "linear-gradient(to top, #4CAF50, #8BC34A)"
-      : "linear-gradient(to top, #FF9800, #FFC107)";
+volumeBar.style.height = `${percent}%`;
+volumeBar.style.background = 
+  db >= DB_THRESHOLD 
+    ? "linear-gradient(to top, #4CAF50, #8BC34A)"
+    : "linear-gradient(to top, #FF9800, #FFC107)";
+
 
   const videoDuration = videoPlayer.duration;
   let currentTime = videoPlayer.currentTime;
