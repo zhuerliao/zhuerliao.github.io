@@ -187,8 +187,8 @@ function updateVolumeIndicator() {
   const db = latestDb;
 
   // ✅ 音量條映射範圍：先放寬，避免一直 0%
-  const minDb = -60;
-  const maxDb = -10;
+  const minDb = -80;
+  const maxDb = -20;
 
   let normalized = (db - minDb) / (maxDb - minDb);
   normalized = Math.min(Math.max(normalized, 0), 1);
