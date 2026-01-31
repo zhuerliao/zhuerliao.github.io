@@ -11,7 +11,7 @@ let recognition,
 
 let volumeHistory = [];
 const VOLUME_HISTORY_MAX = 20; // ✅ 拉長平均視窗，讓讀值更順
-const DB_THRESHOLD = -35; // ✅ 先給比較合理的預設（之後可用 log 校正）
+const DB_THRESHOLD = -20; // ✅ 先給比較合理的預設（之後可用 log 校正）
 
 let bCountdownTimer = null;
 
@@ -187,22 +187,32 @@ function updateVolumeIndicator() {
   const db = latestDb;
 
   // ✅ 音量條映射：加噪音門檻 + 對比增強
-const NOISE_GATE_DB = -60;  // 低於此值 = 完全靜音 (0%)
-const minDb = -50;          // 說話起點
-const maxDb = -15;          // 大聲上限
+const NOISE_GATE_DB = -60;
+const minDb = -45;
+const midDb = -30; 
+const maxDb = -15;
 
 let percent = 0;
-if (db > NOISE_GATE_DB) {   // ✅ 噪音門檻：低於此值強制 0%
-  let normalized = (db - minDb) / (maxDb - minDb);
-  normalized = Math.min(Math.max(normalized, 0), 1);
-  percent = normalized * 100;
+if (db > NOISE_GATE_DB) {
+  if (db < minDb) {
+    percent = 0;
+  } else if (db < midDb) {
+    percent = ((db - minDb) / (midDb - minDb)) * 40;
+  } else if (db < maxDb) {
+    percent = 40 + ((db - midDb) / (maxDb - midDb)) * 45;
+  } else {
+    percent = 85 + ((db - maxDb) / 5) * 15;
+    percent = Math.min(percent, 100);
+  }
 }
 
 volumeBar.style.height = `${percent}%`;
+
+// 顏色邏輯保持原樣，但用新門檻
 volumeBar.style.background = 
   db >= DB_THRESHOLD 
-    ? "linear-gradient(to top, #4CAF50, #8BC34A)"
-    : "linear-gradient(to top, #FF9800, #FFC107)";
+    ? "linear-gradient(to top, #4CAF50, #8BC34A)"  // 綠色：達標
+    : "linear-gradient(to top, #FF9800, #FFC107)"; // 橘色：未達標
 
 
   const videoDuration = videoPlayer.duration;
