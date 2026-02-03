@@ -11,7 +11,7 @@ let recognition,
 
 let volumeHistory = [];
 const VOLUME_HISTORY_MAX = 20; // ✅ 拉長平均視窗，讓讀值更順
-const DB_THRESHOLD = -20; // ✅ 先給比較合理的預設（之後可用 log 校正）
+const DB_THRESHOLD = -45; // ✅ 先給比較合理的預設（之後可用 log 校正）
 
 let bCountdownTimer = null;
 
@@ -94,7 +94,7 @@ async function initAudio() {
 
     // ✅ 可選：GainNode 放大「偵測用」音量（不會影響影片音量）
     const gainNode = audioContext.createGain();
-    gainNode.gain.value = 4; // 2~8 都可試，太大會讓背景噪音也變高
+    gainNode.gain.value = 2; // 2~8 都可試，太大會讓背景噪音也變高
 
     microphone.connect(gainNode);
     gainNode.connect(analyser);
@@ -181,38 +181,40 @@ function updateVolumeIndicator() {
   } else {
     volumeIndicator.style.display = "none";
   }
+latestDb = getVolumeDB();
+const db = latestDb;
 
-  // ✅ 只在這裡取樣一次，存到 latestDb
-  latestDb = getVolumeDB();
-  const db = latestDb;
+// ✅ 1. 調整門檻值 (調整重點)
+  // 背景噪音通常在 -60dB 到 -50dB 之間，我們把門檻拉高
+  const NOISE_GATE_DB = -42;  // 低於此值完全不顯示
+  const maxDb = -20;          // 喊得很大聲的上限
 
-  // ✅ 音量條映射：加噪音門檻 + 對比增強
-const NOISE_GATE_DB = -60;
-const minDb = -45;
-const midDb = -30; 
-const maxDb = -15;
+  let percent = 0;
 
-let percent = 0;
-if (db > NOISE_GATE_DB) {
-  if (db < minDb) {
-    percent = 0;
-  } else if (db < midDb) {
-    percent = ((db - minDb) / (midDb - minDb)) * 40;
-  } else if (db < maxDb) {
-    percent = 40 + ((db - midDb) / (maxDb - midDb)) * 45;
+  if (db > NOISE_GATE_DB) {
+    // ✅ 2. 使用線性插值計算，並增加「起跳點」
+    // 公式：(當前db - 門檻) / (最大值 - 門檻)
+    let ratio = (db - NOISE_GATE_DB) / (maxDb - NOISE_GATE_DB);
+    
+    // 限制在 0~1 之間
+    ratio = Math.max(0, Math.min(1, ratio));
+
+    // ✅ 3. 套用 Power Curve (讓小聲時更低，大聲時噴發感更強)
+    // 使用 ratio 的平方，可以讓低音量時的條動得很小，超過一定門檻才明顯上升
+    percent = Math.pow(ratio, 1.5) * 100; 
   } else {
-    percent = 85 + ((db - maxDb) / 5) * 15;
-    percent = Math.min(percent, 100);
+    percent = 0;
   }
-}
 
-volumeBar.style.height = `${percent}%`;
+  // 更新 UI
+  volumeBar.style.height = `${percent}%`;
 
-// 顏色邏輯保持原樣，但用新門檻
-volumeBar.style.background = 
-  db >= DB_THRESHOLD 
-    ? "linear-gradient(to top, #4CAF50, #8BC34A)"  // 綠色：達標
-    : "linear-gradient(to top, #FF9800, #FFC107)"; // 橘色：未達標
+  // 顏色邏輯：DB_THRESHOLD 是你判斷「合格」的標準
+  // 建議 DB_THRESHOLD 設在 -35 到 -40 左右比較有「出力」感
+  volumeBar.style.background = 
+    db >= DB_THRESHOLD 
+      ? "linear-gradient(to top, #4CAF50, #8BC34A)" // 綠色 (達標)
+      : "linear-gradient(to top, #FF9800, #FFC107)"; // 橘色 (太小聲)
 
 
   const videoDuration = videoPlayer.duration;
