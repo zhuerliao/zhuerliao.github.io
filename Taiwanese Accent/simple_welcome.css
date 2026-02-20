@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: white;
+  font-family: sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+/* 啟動畫面 */
+#startOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  font-size: 60px; /* 從 32px 放大 */
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100000;
+  user-select: none;
+  letter-spacing: 5px;
+}
+
+/* 影片樣式 */
+video {
+  width: 100%;       /* 填滿寬度 */
+  height: 100vh;     /* 填滿高度 */
+  object-fit: cover; /* 確保影片鋪滿 9:16，不留黑邊 */
+  border: none;             /* ✅ 確保 block 定位 */
+}
+
+/* 音量條 */
+#volumeIndicator {
+  display: block;
+  position: fixed;
+  bottom: 15%;
+  left: 8%;
+  transform: none;/* ✅ 移除置中的位移 */
+  width: 45px;
+  height: 200px;
+  background-color: #fff;
+  border: 4px solid #000;
+  border-radius: 25px;
+  z-index: 10001;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+}
+
+#volumeBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%; 
+  background-color: #43967d;
+  transition: height 0.1s ease;
+  border-top: 4px solid #000;
+}
+
+/* B/C 提示文字 */
+#cInfoText {
+  position: fixed;
+  bottom: 5%;                 /* 放在最下面 */
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;                /* 白色字 */
+  font-size: 52px;            /* 夠大的標題感 */
+  font-weight: 700;
+  /* 加上適度的黑影，確保在綠色背景或白色卡片上都能看清 */
+  text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  letter-spacing: 2px;
+}
+
+#cInfoText.show {
+  opacity: 1;
+}
+
+/* 彈窗遮罩 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* 半透明暗化背景 */
+  display: none; /* 預設隱藏 */
+  justify-content: center;
+  align-items: center;
+  z-index: 200000;
+  backdrop-filter: blur(5px); /* 增加點高級感的磨砂效果 */
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 50px;
+  width: 70%;
+}
+
+.modal-btn {
+  border: none;
+  border-radius: 100px;
+  border: 3px solid #000;
+  padding: 30px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.modal-btn:hover, 
+.modal-btn:active {
+  background-color: #000 !important; 
+}
+
+.modal-btn:hover .btn-zh,
+.modal-btn:active .btn-zh,
+.modal-btn:hover .btn-en,
+.modal-btn:active .btn-en {
+  color: #fff !important;
+}
+
+.modal-btn:active {
+  transform: scale(0.95);
+}
+
+.btn-zh {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 32px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btn-en {
+  font-size: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+/* 繼續挑戰：白色 */
+.primary-btn {
+  background-color: #ffffff;
+  color: #000
+}
+
+/* 選擇其他：淺灰色 */
+.secondary-btn {
+  background-color: #d1d1d1;
+  color: #353535
+}
