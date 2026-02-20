@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simple Welcome</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
+  <script src="https://cdn.jsdelivr.com/npm/@tensorflow-models/posenet"></script>
+
+  <link rel="stylesheet" href="simple_welcome.css">
+</head>
+<body>
+
+  <div id="startOverlay">點擊啟動</div>
+
+  <video id="videoPlayer" autoplay loop>
+    <source src="video/simple_welcome_videoA.mp4" type="video/mp4" />
+  </video>
+
+  <div id="volumeIndicator">
+    <div id="volumeBar"></div>
+  </div>
+
+  <div id="cInfoText" aria-live="polite"></div>
+
+  <div id="failModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-btn primary-btn" onclick="retryGame()">
+      <span class="btn-zh">繼續挑戰</span>
+      <span class="btn-en">Keep challenging</span>
+    </button>
+    <button class="modal-btn secondary-btn" onclick="backToMenu()">
+      <span class="btn-zh">選擇其他組遊玩</span>
+      <span class="btn-en">Choose others to play</span>
+    </button>
+  </div>
+</div>
+
+<div id="successModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-btn primary-btn" onclick="nextLevel()">
+      <span class="btn-zh">播放下一組文字</span>
+      <span class="btn-en">Move to the next level</span>
+    </button>
+    <button class="modal-btn secondary-btn" onclick="backToMenu()">
+      <span class="btn-zh">選擇其他組遊玩</span>
+      <span class="btn-en">Choose others to play</span>
+    </button>
+  </div>
+</div>
+
+  <script src="simple_welcome.js"></script>
+</body>
+</html>
