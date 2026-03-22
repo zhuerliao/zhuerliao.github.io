@@ -7,12 +7,37 @@
     font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
 }
 
-body {
-  background-color: #000;
-  color: white;
-  font-family: sans-serif;
-  margin: 0;
-  text-align: center;
+/* 基礎結構（所有頁面通用） */
+/* 基礎結構（所有頁面通用） */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 💡 這裡如果是直立式看板，請設為 1080 x 1920 */
+    width: 1080px; 
+    height: 1920px; 
+    transform-origin: 0 0;
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 📱 針對手機（直向）的通用微調 */
+@media (orientation: portrait) {
+    /* 這裡放針對直向螢幕的內容排版調整，例如字體變大 */
+    .content-box { 
+        padding: 40px; 
+    }
 }
 
 /* 啟動畫面 */
@@ -89,10 +114,13 @@ body {
 
 /* 影片樣式 */
 video {
-  width: 100%;       /* 填滿寬度 */
-  height: 100vh;     /* 填滿高度 */
-  object-fit: cover; /* 確保影片鋪滿 9:16，不留黑邊 */
-  border: none;             /* ✅ 確保 block 定位 */
+  width: 100%;       /* 💡 填滿 main-container 寬度 */
+  height: 100%;      /* 💡 填滿 main-container 高度 */
+  object-fit: cover; /* 確保 9:16 影片鋪滿，不留黑邊 */
+  position: absolute; /* 改用絕對定位讓它在底層 */
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 /* 音量條 */
@@ -143,6 +171,10 @@ video {
 
 #cInfoText.show {
   opacity: 1;
+}
+
+#volumeIndicator, #cInfoText, .modal-overlay, #startOverlay {
+    z-index: 10;
 }
 
 /* 彈窗遮罩 */

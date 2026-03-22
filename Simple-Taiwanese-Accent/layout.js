@@ -1,13 +1,12 @@
-const mainContainer = document.querySelector('.main-container');
-
+// layout.js
 function resizeScreen() {
     const container = document.querySelector('.main-container');
     if (!container) return;
 
-    // 💡 偵測目前是橫向還是直向
+    // 偵測目前是橫向還是直向
     const isPortrait = window.innerHeight > window.innerWidth;
     
-    // 設定目標尺寸：橫向 1920x1080，直向 1080x1920
+    // 設定目標尺寸
     const targetWidth = isPortrait ? 1080 : 1920;
     const targetHeight = isPortrait ? 1920 : 1080;
 
@@ -26,13 +25,4 @@ function resizeScreen() {
 
 window.addEventListener('resize', resizeScreen);
 window.addEventListener('load', resizeScreen);
-resizeScreen();
-
-function init() {
-    // 你的按鈕邏輯
-    const ruleBtn = document.querySelector('.btn.rule');
-    const indexStartBtn = document.getElementById('indexStartBtn');
-    if (ruleBtn) ruleBtn.onclick = () => window.location.href = 'rules.html';
-    if (indexStartBtn) indexStartBtn.onclick = () => window.location.href = 'selection.html';
-}
-init();
+document.addEventListener('DOMContentLoaded', resizeScreen);

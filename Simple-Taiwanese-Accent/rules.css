@@ -7,19 +7,43 @@
     font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
 }
 
+/* 基礎結構（所有頁面通用） */
 html, body {
-    height: 100%;
     width: 100%;
-    overflow: hidden; /* 防止看板出現捲軸 */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* 這裡可以放該頁面的背景色或圖片 */
+}
+
+/* 📱 針對手機（直向）的通用微調 */
+@media (orientation: portrait) {
+    /* 這裡放針對直向螢幕的內容排版調整，例如字體變大 */
+    .content-box { 
+        padding: 40px; 
+    }
 }
 
 .rules-page {
-    width: 100vw;
-    height: 100vh;
-    /* 改用 contain 確保底圖完整顯示，或者維持 cover 但確保容器高度正確 */
+    /* 💡 關鍵修正：不要用 100vw/vh，改用 100% 才能跟隨 main-container 縮放 */
+    width: 100%;
+    height: 100%;
     background-image: url('image/simple-rules-background.png');
     background-size: cover; 
-    background-position: center bottom; /* 關鍵：對齊底部，確保底部色塊不被吃掉 */
+    background-position: center bottom;
     background-repeat: no-repeat;
     position: relative;
 }
