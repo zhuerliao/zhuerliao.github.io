@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Welcome</title>
+
+  <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+<script src="https://unpkg.com/@tensorflow-models/posenet"></script>
+
+  <link rel="stylesheet" href="interaction.css">
+</head>
+<body>
+
+  <div id="countdownOverlay" style="display: none;"></div>
+
+<div id="startOverlay">點擊啟動</div>
+
+  <video id="videoPlayer" autoplay loop>
+    <source src="video/simple_welcome_videoA.mp4" type="video/mp4" />
+  </video>
+
+  <div id="volumeIndicator">
+    <div id="volumeBar"></div>
+  </div>
+
+  <div id="cInfoText" aria-live="polite"></div>
+
+  <div id="gameModal" class="modal-overlay">
+  <div class="modal-content">
+    <div id="modalMessage"></div>
+    
+    <div id="comingSoonContainer" style="display: none; margin-bottom: 30px;">
+        <div class="success-title">挑戰成功！</div>
+        <div class="coming-soon-text">其他組互動，敬請期待。</div>
+    </div>
+    
+    <button class="modal-btn primary-btn" onclick="retryGame()">
+      <span class="btn-zh">再試一次</span>
+      <span class="btn-en">Try again</span>
+    </button>
+    <button class="modal-btn secondary-btn" onclick="backToHome()">
+      <span class="btn-zh">回首頁</span>
+      <span class="btn-en">Go back</span>
+    </button>
+  </div>
+</div>
+
+  <script src="welcome.js"></script>
+</body>
+</html>

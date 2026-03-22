@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+/* 鋪滿視窗底色，可以改成你喜歡的背景黑邊顏色 */
+body {
+    background-color: #fff; 
+    margin: 0;
+    overflow: hidden;
+}
+
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 💡 核心魔法：強制維持 16:9 比例的縮放容器 */
+.main-container {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    transform-origin: center center;
+    flex-shrink: 0; /* 防止被 flex 壓縮 */
+}
+
+/*首頁開始*/
+.simple-background {
+    width: 100%;
+    height: 100%;
+    background-image: url('image/simple-index-background.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    align-items: center;
+    padding-bottom: 120px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.btn {
+    width: 500px;
+    height: 120px;
+    background-color: #fffefe;
+    border: 3px solid #000;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer; 
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover, 
+.btn:active {
+    background-color: #000 !important; 
+}
+
+.btn:hover .rule-zh, .btn:active .rule-zh,
+.btn:hover .rule-en, .btn:active .rule-en {
+    color: #fff !important;
+}
+
+.btn .rule-zh {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.btn .rule-en {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+/*首頁結束*/

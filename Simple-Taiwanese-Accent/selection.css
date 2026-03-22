@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/*選擇互動開始*/
+.selection-background {
+    width: 100%;
+    height: 100vh;
+    background-image: url('image/simple-selection-background.png');
+    /* 核心修改：使用 100% 確保背景不被裁切 */
+    background-size: 100% 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 讓內容稍微往中間靠，不要死貼上下邊界 */
+    justify-content: center; 
+    gap: 80px;
+}
+
+.choose-header h2 { font-size: 40px; text-align: center; margin-bottom: 10px; }
+.choose-header p { font-size: 24px; text-align: center; color: #666; }
+
+/* 輪播容器高度 */
+.swiper-container {
+    width: 900px;
+    height: 1100px;
+    perspective: 1200px; /* 增加 3D 視角深度 */
+    overflow: visible !important;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+    overflow: visible !important;
+}
+
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.swiper-slide-shadow,
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right,
+.swiper-slide-shadow-top,
+.swiper-slide-shadow-bottom {
+    background: transparent !important; 
+    background-image: none !important;  
+    opacity: 0 !important;             
+    display: none !important;         
+}
+
+.swiper-slide {
+    width: 550px; 
+    height: 800px;
+    background: transparent;
+    overflow: visible !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 40px; 
+    border: 8px solid #000;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important; 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.swiper-slide-active {
+    opacity: 1 !important;
+    z-index: 10;
+    box-shadow: none !important; 
+    position: relative;
+}
+
+.swiper-slide-active:hover .card-content {
+    transform: translateY(-40px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2) !important;
+}
+
+.card-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    padding: 40px; 
+    pointer-events: none; /* 關鍵：讓圖片像空氣一樣，滑鼠直接穿透到 card-content */
+}
+
+.swiper-button-next::after, 
+.swiper-button-prev::after {
+    font-size: 60px !important; /* 稍微縮小一點點，看起來更優雅 */
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* 箭頭樣式調整（黑色粗體箭頭） */
+.swiper-button-next,
+.swiper-button-prev {
+    background: none !important; 
+    border: none !important;    
+    color: #000 !important;      
+    width: 80px !important;
+    height: 120px !important;
+    /* 增加權重，確保在卡牌上方 */
+    z-index: 20 !important;
+}
+
+.swiper-button-next { right: 40px !important; }
+.swiper-button-prev { left: 40px !important; }
+
+/* 分頁圓點 */
+.swiper-pagination-bullet {
+    width: 16px !important;
+    height: 16px !important;
+    background-color: #000 !important; /* 強制黑色 */
+    opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #000 !important;
+    opacity: 1 !important;
+}
+
+.swiper-pagination {
+    bottom: -50px !important; 
+}
+
+.btn {
+    width: 500px;
+    height: 120px;
+    background-color: #fffefe;
+    border: 3px solid #000;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer; 
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover, 
+.btn:active {
+    background-color: #000 !important; 
+}
+
+.btn:hover .zh, .btn:active .zh,
+.btn:hover .en, .btn:active .en {
+    color: #fff !important;
+}
+
+.btn .zh {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.btn .en {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.go-back-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

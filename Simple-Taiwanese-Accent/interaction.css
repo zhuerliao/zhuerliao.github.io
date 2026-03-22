@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: white;
+  font-family: sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+/* 啟動畫面 */
+#startOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,1) 100%);
+  transition: opacity 0.5s ease;
+  color: #fff;
+  font-size: 60px; /* 從 32px 放大 */
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100000;
+  user-select: none;
+  letter-spacing: 5px;
+}
+
+/* 倒數畫面樣式 */
+#countdownOverlay {
+  position: fixed;
+  inset: 0;
+  display: none; /* 由 JS 控制 */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6); /* 稍微加深背景 */
+  color: #fff;
+  z-index: 10005;
+  pointer-events: none;
+}
+
+/* 倒數數字動畫 */
+.countdown-number {
+  font-size: 250px; /* 更大的數字 */
+  font-weight: 900;
+  font-family: 'Roboto Slab', serif;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  animation: countZoom 1s ease-out infinite;
+}
+
+/* 縮放動畫：從大到小並淡出 */
+@keyframes countZoom {
+  0% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* 如果想要圓圈感，可以加在數字外面 (選配) */
+.countdown-circle {
+  width: 400px;
+  height: 400px;
+  border: 15px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 50px rgba(255,255,255,0.3);
+}
+
+/* 影片樣式 */
+video {
+  width: 100%;       /* 填滿寬度 */
+  height: 100vh;     /* 填滿高度 */
+  object-fit: cover; /* 確保影片鋪滿 9:16，不留黑邊 */
+  border: none;             /* ✅ 確保 block 定位 */
+}
+
+/* 音量條 */
+#volumeIndicator {
+  display: block;
+  position: fixed;
+  bottom: 15%;
+  left: 8%;
+  transform: none;/* ✅ 移除置中的位移 */
+  width: 45px;
+  height: 200px;
+  background-color: #fff;
+  border: 4px solid #000;
+  border-radius: 25px;
+  z-index: 10001;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+}
+
+#volumeBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%; 
+  background-color: #43967d;
+  transition: height 0.1s ease;
+  border-top: 4px solid #000;
+}
+
+/* B/C 提示文字 */
+#cInfoText {
+  position: fixed;
+  bottom: 5%;                 /* 放在最下面 */
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;                /* 白色字 */
+  font-size: 52px;            /* 夠大的標題感 */
+  font-weight: 700;
+  /* 加上適度的黑影，確保在綠色背景或白色卡片上都能看清 */
+  text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  letter-spacing: 2px;
+}
+
+#cInfoText.show {
+  opacity: 1;
+}
+
+/* 彈窗遮罩 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* 半透明暗化背景 */
+  display: none; /* 預設隱藏 */
+  justify-content: center;
+  align-items: center;
+  z-index: 200000;
+  backdrop-filter: blur(5px); /* 增加點高級感的磨砂效果 */
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px; 
+  width: 85%;      /* 增加容器寬度 */
+  max-width: 500px; /* 限制最大寬度避免在桌機過大 */
+  align-items: center;
+}
+
+/* 訊息文字樣式 */
+#modalMessage {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  min-height: 80px; /* 固定高度，避免文字換行時按鈕跳動 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 2px 2px 4px #000;
+  margin-bottom: 10px;
+  padding: 0 20px;
+}
+
+/* 按鈕外觀恢復 */
+.modal-btn {
+  width: 100%;     /* 讓按鈕填滿容器寬度 */
+  border-radius: 100px;
+  border: 4px solid #000;
+  padding: 25px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.modal-btn:hover, 
+.modal-btn:active {
+  background-color: #000 !important; 
+}
+
+.modal-btn:hover .btn-zh,
+.modal-btn:active .btn-zh,
+.modal-btn:hover .btn-en,
+.modal-btn:active .btn-en {
+  color: #fff !important;
+}
+
+.modal-btn:active {
+  transform: scale(0.95);
+}
+
+.btn-zh {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 32px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btn-en {
+  font-size: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+/* 繼續挑戰：白色 */
+.primary-btn {
+  background-color: #ffffff;
+  color: #000
+}
+
+/* 選擇其他：淺灰色 */
+.secondary-btn {
+  background-color: #d1d1d1;
+  color: #353535
+}
+
+.comingSoonText {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #666;
+  display: none;
+}
+
+/* 成功提示文字樣式 */
+.success-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(213, 213, 213, 0.5);
+    margin-bottom: 10px;
+}
+
+.coming-soon-text {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff; /* 白色字 */
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    animation: fadeInSlide 0.8s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

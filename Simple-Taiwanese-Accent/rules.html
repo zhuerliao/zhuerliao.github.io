@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Taiwanese Accent Rules</title>
+    <link rel="stylesheet" href="rules.css">
+</head>
+<body>
+
+<div class="wrap rules-page">
+    <div class="rules-container">
+        
+        <header class="rules-header">
+            <h3>怎麼玩？很簡單，照著唸就好！</h3>
+            <p class="en-sub">How to play? speak the text on the screen!</p>
+        </header>
+
+        <div class="flow-container">
+            
+            <div class="rule-step">
+                <div class="step-text">
+                    <h4 class="step-num">1. 選擇黏音</h4>
+                    <p class="step-desc">選擇想體驗的黏音<br>點選後進入互動</p>
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <span class="arrow-down"></span>
+            </div>
+
+            <div class="rule-step">
+                <div class="step-text">
+                    <h4 class="step-num">2. 唸出黏音</h4>
+                    <p class="step-desc">用平時說話的音量<br>將看到的文字說出來</p>
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <span class="arrow-down"></span>
+            </div>
+
+            <div class="rule-step">
+                <div class="step-text">
+                    <h4 class="step-num">3. 挑戰成功or失敗</h4>
+                    <p class="step-desc">系統辨識成功 黏音轉變成原詞<br>系統辨識失敗 重新挑戰一次</p>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="rules-footer">
+            <button class="btn-clean" id="enterInteractionBtn">
+    <svg class="svg-arrow-down" width="60" height="30" viewBox="0 0 60 30">
+        <path d="M10 5 L30 25 L50 5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="zh">進入互動</span>
+    <span class="en">Enter interaction</span>
+</button>
+        </footer> </div> </div>
+
+<script>
+    // 簡單的 JS 用於導向下一頁
+    const enterBtn = document.getElementById('enterInteractionBtn');
+    enterBtn.addEventListener('click', () => {
+        window.location.href = 'selection.html'; // 假設下一頁是 selection.html
+    });
+</script>
+
+</body>
+</html>
