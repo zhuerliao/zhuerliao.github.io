@@ -30,11 +30,20 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
-    transform-origin: 0 0;
+    /* 💡 移除原本的 flex，由 JS 控制寬高 */
+    transform-origin: 0 0; 
     background-color: #fff;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    
+    /* 💡 增加 Safari 硬體加速，防止裁切 */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    
+    /* 💡 初始寬高先給定，防止加載瞬間閃爍 */
+    width: 1920px;
+    height: 1080px;
 }
 
 .simple-background {
