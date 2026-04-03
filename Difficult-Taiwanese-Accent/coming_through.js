@@ -413,16 +413,17 @@ function showFailProcess(msg) {
 function showSuccessProcess() {
   if (successTimer) clearInterval(successTimer);
   
-  gameModal.classList.add("show");
-  
-  // 1. 隱藏失敗時可能出現的 modalMessage (原因文字)
+  // 🎯 1. 隱藏失敗文字，確保區塊乾淨
   modalMessage.style.display = "none";
   
-  // 2. 顯示成功專用區塊
+  // 🎯 2. 顯示成功專用區塊 (就是你 HTML 裡的 comingSoonContainer)
   const comingSoon = document.getElementById("comingSoonContainer");
   if (comingSoon) comingSoon.style.display = "block";
 
-  // 3. 隱藏遊戲中的 UI
+  // 🎯 3. 不用 gameModal.classList.add("show")，改加 success-active
+  gameModal.classList.add("success-active");
+
+  // 🎯 4. 隱藏遊戲中的 UI
   cInfoText.classList.remove("show");
   volumeIndicator.style.display = "none";
   errorResetTimer = true; 
@@ -442,12 +443,14 @@ function resetVideoA() {
 
 // --- 重試邏輯 ---
 function retryGame() {
-  // 隱藏成功區塊並恢復原因文字顯示
   const comingSoon = document.getElementById("comingSoonContainer");
   if (comingSoon) comingSoon.style.display = "none";
   modalMessage.style.display = "flex";
 
+  // 🎯 清除成功狀態
   gameModal.classList.remove("show");
+  gameModal.classList.remove("success-active");
+  
   modalMessage.textContent = ""; 
   errorResetTimer = null; 
   currentVideo = "A";

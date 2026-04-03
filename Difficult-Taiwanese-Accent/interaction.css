@@ -180,16 +180,31 @@ video {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* 半透明暗化背景 */
-  display: none; /* 預設隱藏 */
-  justify-content: center;
-  align-items: center;
+  background: rgba(0, 0, 0, 0.4); 
+  display: none;
+  justify-content: center; 
+  align-items: center;    
   z-index: 200000;
-  backdrop-filter: blur(5px); /* 增加點高級感的磨砂效果 */
+  backdrop-filter: blur(5px); 
 }
 
 .modal-overlay.show {
+  display: flex; 
+}
+
+/*成功專用樣式*/
+.modal-overlay.success-active {
   display: flex;
+  background: transparent; 
+  backdrop-filter: none;   
+  justify-content: center;
+  align-items: flex-end;  
+  padding-bottom: 80px;    
+  pointer-events: none;    
+}
+
+.modal-overlay.success-active .modal-content {
+  pointer-events: auto;  
 }
 
 .modal-content {
