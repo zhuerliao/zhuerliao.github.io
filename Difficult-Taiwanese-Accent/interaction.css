@@ -199,7 +199,7 @@ video {
   backdrop-filter: none;   
   justify-content: center;
   align-items: flex-end; /* 🎯 垂直靠底 */
-  padding-bottom: 800px;  /* 距離底部留點安全距離 */
+  padding-bottom: 80px;  /* 距離底部留點安全距離 */
   pointer-events: none;    
 }
 
@@ -220,11 +220,8 @@ video {
 
 /* 🚀 A. 當處於【成功】狀態時：強制撐高，按鈕沉底 */
 .modal-overlay.success-active .modal-content {
-  min-height: 750px; /* 撐開高度給 margin-top: auto 推 */
-}
-
-.modal-overlay.success-active .button-group {
-  margin-top: auto; /* 推到最底下 */
+  pointer-events: auto; 
+  min-height: 1100px;
 }
 
 /* 🚀 B. 當處於【失敗】（預設或 .show）狀態時：不做多餘撐高，自然置中 */
