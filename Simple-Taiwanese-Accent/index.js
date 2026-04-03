@@ -36,10 +36,9 @@ window.addEventListener('load', resizeScreen);
 resizeScreen();
 
 function init() {
-    // 你的按鈕邏輯
-    const ruleBtn = document.querySelector('.btn.rule');
     const indexStartBtn = document.getElementById('indexStartBtn');
-    if (ruleBtn) ruleBtn.onclick = () => window.location.href = 'rules.html';
-    if (indexStartBtn) indexStartBtn.onclick = () => window.location.href = 'selection.html';
+    if (indexStartBtn) {
+        indexStartBtn.onclick = () => window.location.href = 'rules.html';
+    }
 }
 init();

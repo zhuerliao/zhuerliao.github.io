@@ -287,38 +287,75 @@ function initRecognition() {
       isRecognizing = false;
     };
 
-    // 原有的結果處理邏輯
+    // 🎯 採用網頁版的強大過濾邏輯
     recognition.onresult = (event) => {
-        if (currentVideo !== "A" || errorResetTimer !== null) return;
-        const last = event.results[event.results.length - 1];
-        if (!last || !last.isFinal) return;
+      if (currentVideo !== "A" || errorResetTimer !== null) return;
+      const last = event.results[event.results.length - 1];
+      if (!last || !last.isFinal) return; // 保持在定案後才進行過濾
 
-        const transcript = last[0].transcript.trim();
-        const db = latestDb;
+      const transcript = last[0].transcript.trim().toLowerCase();
+      const db = latestDb;
 
-        console.log("辨識到文字:", transcript); // 除錯用
+      console.log("辨識到文字:", transcript); // 保留宣傳版的除錯
 
-        const fuzzyChars = {
-          緩: ["緩","還","換","環","歡","莞","宦","喚","萬","呼","乎","忽","灣","彎","碗","晚","婉","鍰","幻","晃","黃","謊","慌","犯","販","範","反","返","法","發"],
-          光: ["光","廣","逛","洸","胱","觀","關","官","剛","鋼","岡","汪","工","公","功","港","框","曠","狂","礦","況","宏","紅","洪","航","行","缸"],
-          臨: ["臨","林","零","玲","麟","淋","霖","寧","齡","領","玲","零","鈴","令","鄰","倫","靈","理","立","曆","利","裡","里","禮","人","認","任","忍","刃","能","農"]
-        };
+      // 1. 這是網頁版完整的「緩光臨」字典（已補上宣傳版遺失的字）
+      const fuzzyChars = {
+        緩: ["緩","還","換","環","歡","莞","宦","喚","萬","呼","乎","忽","灣","彎","碗","晚","婉","鍰","幻","晃","黃","謊","慌","犯","販","範","反","返","法","發","紅","弘","膀","彭","很"],
+        光: ["光","廣","逛","洸","胱","觀","關","官","剛","鋼","岡","汪","工","公","功","港","框","曠","狂","礦","況","宏","紅","洪","航","行","缸"],
+        臨: ["臨","林","零","玲","麟","淋","霖","寧","齡","領","鈴","令","鄰","倫","靈","理","立","曆","利","裡","里","禮","人","認","任","忍","刃","能","農","你","明","名"]
+      };
 
-        function fuzzyMatch(text) {
-          let matchCount = 0;
-          ["緩", "光", "臨"].forEach((key) => {
-            if (fuzzyChars[key].some(v => text.toLowerCase().includes(v))) matchCount++;
-          });
-          return matchCount >= 2;
+      function fuzzyMatch(text) {
+        const cleanText = text.replace(/\s+/g, ""); 
+
+        // 嚴格限制字數，避免雜音干擾
+        if (cleanText.length < 2 || cleanText.length > 3) {
+          return false;
         }
 
-        if (db >= DB_THRESHOLD && fuzzyMatch(transcript)) {
-          stopRecognition();
-          switchToVideoB();
+        const makeGroup = (key) => `[${[...new Set(fuzzyChars[key])].join('')}]`;
+        
+        const gHuan = makeGroup("緩");
+        const gGuang = makeGroup("光");
+        const gLin = makeGroup("臨");
+
+        // 正規表達式嚴格比對順序
+        const patterns = [
+          new RegExp(`^${gHuan}${gGuang}${gLin}$`), 
+          new RegExp(`^${gHuan}${gGuang}$`),         
+          new RegExp(`^${gGuang}${gLin}$`),         
+          new RegExp(`^${gHuan}${gLin}$`)           
+        ];
+
+        return patterns.some(p => p.test(cleanText));
+      }
+
+      const keywordMatched = fuzzyMatch(transcript);
+
+      // 2. 判斷音量與文字是否都達標
+      if (db >= DB_THRESHOLD && keywordMatched) {
+        console.log(`辨識成功，字詞為: "${transcript}"`);
+        stopRecognition();
+        switchToVideoB(); 
+      } else {
+        let errorMessage = "";
+
+        if (db < DB_THRESHOLD) {
+          errorMessage = "你的音量不夠喔！<br>請大聲一點再試一次。";
         } else {
-          let errorMessage = (db < DB_THRESHOLD) ? "你的音量不夠喔！請提高音量再試一次。" : "你的聲音不夠黏喔！請說出關鍵字「緩光臨」。";
-          showFailProcess(errorMessage);
+          // 這裡使用宣傳版原本的提示，引導觀眾唸出正確關鍵字
+          errorMessage = "你的聲音不夠黏喔！<br>請說出關鍵字「緩光臨」。";
+          console.log(`辨識失敗，字詞為: "${transcript}"`);
         }
+        
+        // 確保 DOM 存在再寫入，避免噴錯
+        const modalMsgElem = document.getElementById('modalMessage');
+        if (modalMsgElem) {
+          modalMsgElem.innerHTML = errorMessage;
+        }
+        
+        showFailProcess(errorMessage); 
+      }
     };
 
     recognition.onend = () => {
@@ -339,7 +376,7 @@ function showFailProcess(msg) {
   
   // 顯示失敗原因，隱藏成功區塊
   modalMessage.style.display = "flex";
-  modalMessage.textContent = msg; 
+  modalMessage.innerHTML = msg; 
   
   const comingSoon = document.getElementById("comingSoonContainer");
   if (comingSoon) comingSoon.style.display = "none";
