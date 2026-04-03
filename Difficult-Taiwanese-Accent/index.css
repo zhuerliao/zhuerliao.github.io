@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+/* 基礎設定 */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* 背景黑邊 */
+    overflow: hidden; /* 禁止出現捲軸 */
+}
+
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 💡 核心容器：保持 1920x1080 */
+/* 鎖死畫布大小，不准任何彈性伸縮 */
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 💡 移除原本的 flex，由 JS 控制寬高 */
+    transform-origin: 0 0; 
+    background-color: #fff;
+    overflow: hidden;
+    
+    /* 💡 增加 Safari 硬體加速，防止裁切 */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    
+    /* 💡 初始寬高先給定，防止加載瞬間閃爍 */
+    width: 1920px;
+    height: 1080px;
+}
+
+.simple-background {
+    width: 100%;
+    height: 100%;
+    /* 💡 使用 cover 確保背景永遠填滿畫布且不壓扁 */
+    background: url('image/difficult-index-background.png') no-repeat center center;
+    background-size: cover; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 120px;
+}
+
+/* 📱 針對手機（直向）的微調 */
+@media (orientation: portrait) {
+    .btn {
+        width: 600px; /* 直向時按鈕可以寬一點 */
+        height: 150px;
+        border-radius: 75px;
+    }
+    .btn .rule-zh { font-size: 48px; }
+    .btn .rule-en { font-size: 28px; }
+    .simple-background { padding-bottom: 250px; } /* 內容往上移一點 */
+}
+
+/* 確保按鈕組不會因為外部壓力縮放 */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: auto; 
+}
+
+.btn {
+    width: 500px;
+    height: 120px;
+    background-color: #fffefe;
+    border: 3px solid #6e6e6e;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer; 
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover, 
+.btn:active {
+    background-color: #c6c6c6 !important; 
+    border: 3px solid #000; 
+}
+
+.btn:hover .rule-zh, .btn:active .rule-zh,
+.btn:hover .rule-en, .btn:active .rule-en {
+    color: #000 !important;
+}
+
+.btn .rule-zh {
+    font-size: 32px;
+    font-weight: bold;
+    color: #6e6e6e;
+    line-height: 1;
+}
+
+.btn .rule-en {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6e6e6e;
+    line-height: 1;
+}
+/*首頁結束*/

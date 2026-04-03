@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Roboto Slab', sans-serif;
+}
+
+/* 基礎結構（所有頁面通用） */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* 這裡可以放該頁面的背景色或圖片 */
+}
+
+/* 📱 針對手機（直向）的通用微調 */
+@media (orientation: portrait) {
+    /* 這裡放針對直向螢幕的內容排版調整，例如字體變大 */
+    .content-box { 
+        padding: 40px; 
+    }
+}
+
+.rules-page {
+    /* 💡 關鍵修正：不要用 100vw/vh，改用 100% 才能跟隨 main-container 縮放 */
+    width: 100%;
+    height: 100%;
+    background-image: url('image/difficult-rules-background.png');
+    background-size: cover; 
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* 修正容器高度 */
+.rules-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 150px 120px 120px 120px; /* 頂部從 180 縮減到 150 */
+    justify-content: flex-start; 
+    gap: 30px; /* 縮小與 Header 的間距 */
+    box-sizing: border-box;
+}
+
+/* 頂部標題 */
+.rules-header {
+    text-align: left; /* 依照設計稿左對齊 */
+    margin-bottom: 5vh;
+}
+
+.rules-header h3 {
+    font-size: 32px; /* 依照設計稿 */
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.rules-header .en-sub {
+    font-size: 24px;
+    color: #fff;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+/* 流程步驟容器 */
+.flow-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 改為靠上，不再強制垂直置中 */
+    margin-top: 20px;
+}
+
+/* 單個步驟 */
+.rule-step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 改回 center，讓左邊文字對齊右邊插圖的中心 */
+    min-height: 280px;   /* 增加一點高度，給予呼吸感 */
+    margin-bottom: 0;    /* 由 arrow-container 的 margin 控管 */
+}
+
+/* 步驟文字區 */
+.step-text {
+    flex: 0 0 60%;
+    text-align: left;
+    /* 如果覺得文字還是太高，可以加一點點 padding-top */
+    padding-top: 10px; 
+}
+
+.step-num {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.step-desc {
+    font-size: 24px;
+    line-height: 1.8;
+    color: #fff;
+}
+
+/* 步驟插圖區 */
+.step-visual {
+    flex: 0 0 320px; 
+    height: 250px; /* 縮減高度，讓它更容易與文字水平對準 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center; /* 插圖本身也要垂直置中 */
+}
+
+/* 底部說明文字 */
+.visual-caption {
+    margin-top: auto; /* 靠底部 */
+    font-size: 16px;
+    color: #fff;
+}
+
+/* 連接箭頭樣式 */
+.arrow-container {
+    text-align: left;
+    padding-left: 20px; 
+    margin: -30px 0 10px 0; /* 調整負 margin 讓箭頭位置更精確 */
+}
+
+.arrow-down {
+    display: inline-block;
+    width: 2px;
+    height: 60px;
+    background-color: #fff;
+    position: relative;
+}
+
+.arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #fff;
+}
+
+/* 底部無框按鈕 */
+.rules-footer {
+    position: absolute;
+    bottom: 250px; /* 從 180px 調升到 250px，你可以根據實際視覺再微調 */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.btn-clean {
+    pointer-events: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    gap: 8px; /* 縮小文字間的間距，讓它更緊湊 */
+    color: #c0c0c0;
+    transition: color 0.2s ease;
+}
+
+/* ============================================================
+   1. 定義滑動動畫 (Keyframes)
+   讓箭頭做短距離的垂直位移，並模仿重力，下墜快、回彈慢。
+   在 1080x1920 上，位移 15px 視覺感最剛好。
+============================================================ */
+@keyframes slideDownBounce {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    30% {
+        /* 下墜到最低點 */
+        transform: translateY(15px);
+        opacity: 0.9;
+    }
+    60% {
+        /* 回彈到一半 */
+        transform: translateY(5px);
+        opacity: 1;
+    }
+    100% {
+        /* 回到原點 */
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   2. SVG 箭頭基礎樣式 (修正與優化)
+   確保 SVG 的顏色繼承，並為過渡效果預留 transition。
+============================================================ */
+.svg-arrow-down {
+    /* 這裡原本固定了顏色，改為 inherit 以便 hover 時統一控制 */
+    color: inherit; 
+    margin-bottom: 15px;
+    flex-shrink: 0;
+    transition: color 0.2s ease; /* 增加顏色轉場 */
+}
+
+/* ============================================================
+   3. 按鈕 Hover/Active 的顏色變化
+   統一控制文字 span 和 SVG 的顏色。
+============================================================ */
+.btn-clean:hover, 
+.btn-clean:active {
+    color: #fff; /* 文字span同步變色 */
+}
+
+/* 確保 SVG Hover 顏色同步 */
+.btn-clean:hover .svg-arrow-down,
+.btn-clean:active .svg-arrow-down {
+    color: #fff;
+}
+
+/* ============================================================
+   4. 觸發滑動動態 (關鍵修正)
+   當「整個按鈕」被 hover 時，我們「只讓箭頭本身」做 slideDown 動畫。
+   在看板上，動畫頻率可以稍微快一點（0.8s），增加俐落感。
+============================================================ */
+.btn-clean:hover .svg-arrow-down {
+    /* 動畫名稱、時長、循環方式 (infinite代表一直重複)。
+       我們使用 cubic-bezier 讓動畫更像實體的彈跳，而不是僵硬的機械運作。
+    */
+    animation: slideDownBounce 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+/* 額外優化：當使用者「按下去」時，讓整個按鈕微微下陷，提供點擊回饋 */
+.btn-clean:active {
+    transform: translateY(2px);
+    transition: transform 0.1s ease;
+}
+
+.btn-clean .zh {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.btn-clean .en {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.btn-clean span {
+    text-align: center;
+    display: block;
+    width: 100%;
+}
