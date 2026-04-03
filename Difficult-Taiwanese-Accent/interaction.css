@@ -226,9 +226,16 @@ video {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; 
-  margin-top: auto; /* 🎯 吃掉上方剩餘空間，推到底部 */
+  margin-top: auto; 
   width: 100%;
+}
+
+#comingSoonContainer.success-info .modal-btn {
+  margin-bottom: 20px; /* ⏪ 增加兩顆按鈕之間的垂直間距 */
+}
+
+#comingSoonContainer.success-info .modal-btn:last-child {
+  margin-bottom: 0;
 }
 
 /* 訊息文字樣式 (失敗時置中用) */
