@@ -27,26 +27,28 @@
   <div id="cInfoText" aria-live="polite"></div>
 
   <div id="gameModal" class="modal-overlay">
-    <div class="modal-content">
-      <div id="modalMessage"></div>
-      
-      <div id="comingSoonContainer" class="success-info" style="display: none;">
-          <div class="success-title">挑戰成功！</div>
-          <div class="coming-soon-text">其他組互動敬請期待。</div>
-          
-          <button class="modal-btn primary-btn" onclick="retryGame()">
-            <span class="btn-zh">再試一次</span>
-            <span class="btn-en">Try again</span>
-          </button>
-          
-          <button class="modal-btn secondary-btn" onclick="backToHome()">
-            <span class="btn-zh">回首頁</span>
-            <span class="btn-en">Go back</span>
-          </button>
-      </div>
-      
+  <div class="modal-content">
+    
+    <div id="modalMessage"></div>
+    
+    <div id="comingSoonContainer" style="display: none;">
+        <div class="success-title">挑戰成功！</div>
+        <div class="coming-soon-text">其他組互動敬請期待。</div>
     </div>
+    
+    <div class="button-group">
+      <button class="modal-btn primary-btn" onclick="retryGame()">
+        <span class="btn-zh">再試一次</span>
+        <span class="btn-en">Try again</span>
+      </button>
+      <button class="modal-btn secondary-btn" onclick="backToHome()">
+        <span class="btn-zh">回首頁</span>
+        <span class="btn-en">Go back</span>
+      </button>
+    </div>
+
   </div>
+</div>
 
 <script src="layout.js"></script>
   <script src="coming_through.js"></script>
