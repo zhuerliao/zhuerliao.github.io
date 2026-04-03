@@ -203,7 +203,7 @@ function updateVolumeIndicator() {
       if (window.isAEnding) {
         cInfoText.textContent = `未偵測到再嘗試一次吧`;
       } else {
-        cInfoText.textContent = latestDb >= DB_THRESHOLD ? "音量足夠：請說出關鍵字「緩光臨」" : "音量太小：請提高音量說話";
+        cInfoText.textContent = latestDb >= DB_THRESHOLD ? "音量足夠：請用黏音唸看看" : "音量太小：請提高音量說話";
       }
     }
   } else if (!isInitialPromptActive) {

@@ -199,12 +199,12 @@ video {
   backdrop-filter: none;   
   justify-content: center;
   align-items: flex-end; /* 🎯 垂直靠底 */
-  padding-bottom: 80px;  /* 距離底部留點安全距離 */
+  padding-bottom: 800px;  /* 距離底部留點安全距離 */
   pointer-events: none;    
 }
 
-.modal-overlay.success-active .modal-content {
-  pointer-events: auto;  
+.modal-overlay.success-active #comingSoonContainer {
+  margin-top: auto; /* 🔥 關鍵：把成功文字區塊強制推到 modal 內容的最底部 */
 }
 
 /*成功彈窗內部排版修正*/
@@ -230,6 +230,10 @@ video {
 /* 🚀 B. 當處於【失敗】（預設或 .show）狀態時：不做多餘撐高，自然置中 */
 .modal-overlay.show .modal-content {
   min-height: auto; /* 不撐高，維持內容物原本大小 */
+}
+
+.modal-overlay.show #comingSoonContainer {
+  margin-top: 0; /* 恢復正常排列 */
 }
 
 .modal-overlay.show .button-group {
