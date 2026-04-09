@@ -46,18 +46,40 @@ html, body {
     height: 1080px;
 }
 
-.simple-background {
+/* 修改背景容器：移除圖檔，改用相對定位 */
+.difficult-background {
+    position: relative; 
     width: 100%;
     height: 100%;
-    /* 💡 使用 cover 確保背景永遠填滿畫布且不壓扁 */
-    background: url('image/difficult-index-background.png') no-repeat center center;
-    background-size: cover; 
+    background: #000; /* 影片載入前的底色 */
     
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     padding-bottom: 120px;
+    overflow: hidden;
+}
+
+/* 🎯 背景影片滿版設定 */
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保影片鋪滿不變形 */
+    z-index: 1;
+}
+
+/* 確保按鈕在影片上方 */
+.button-group {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: auto; 
 }
 
 /* 📱 針對手機（直向）的微調 */
@@ -70,14 +92,6 @@ html, body {
     .btn .rule-zh { font-size: 48px; }
     .btn .rule-en { font-size: 28px; }
     .simple-background { padding-bottom: 250px; } /* 內容往上移一點 */
-}
-
-/* 確保按鈕組不會因為外部壓力縮放 */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    width: auto; 
 }
 
 .btn {
